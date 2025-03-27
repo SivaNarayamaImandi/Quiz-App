@@ -30,7 +30,7 @@ public class QuestionController {
         return questionService.getQuestionsByCategory(category);
     }
 
-    @GetMapping("get-questions/{difficultyLevel}")
+    @GetMapping("get-ques/{difficultyLevel}")
     public ResponseEntity<List<Question>> getQuestionsByDifficultyLevel(@PathVariable String difficultyLevel) {
         return questionService.getQuestionsByDifficultyLevel(difficultyLevel);
     }
