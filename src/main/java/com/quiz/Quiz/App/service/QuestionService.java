@@ -24,7 +24,7 @@ public class QuestionService {
                 e.printStackTrace();
             }
         }
-        return new ResponseEntity<String>("Question Added Unsuccessful.....", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<String>("Question Added Failed.....", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<List<Question>> getQuestions() {
@@ -78,6 +78,6 @@ public class QuestionService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<String>("Question Deleted Unsuccessful.....", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("Question Deleted Failed.....", HttpStatus.BAD_REQUEST);
     }
 }
