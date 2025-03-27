@@ -3,7 +3,6 @@ package com.quiz.Quiz.App.controller;
 import com.quiz.Quiz.App.model.Question;
 import com.quiz.Quiz.App.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +17,31 @@ public class QuestionController {
 
     @PostMapping("add-question")
     public ResponseEntity<String> addQuestion(@RequestBody Question question) {
-        if (questionService.addQuestion(question) != null)
-            return new ResponseEntity<String>(questionService.addQuestion(question), HttpStatus.OK);
-        return new ResponseEntity<String>(questionService.addQuestion(question), HttpStatus.INTERNAL_SERVER_ERROR);
+        return questionService.addQuestion(question);
     }
 
     @GetMapping("get-questions")
     public ResponseEntity<List<Question>> getQuestions() {
-        if (questionService.getQuestions()!=null)
-            return new ResponseEntity<List<Question>>(questionService.getQuestions(), HttpStatus.OK);
-        return new ResponseEntity<List<Question>>(questionService.getQuestions(), HttpStatus.NOT_FOUND);
+        return questionService.getQuestions();
+    }
+
+    @GetMapping("get-questions/{category}")
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category) {
+        return questionService.getQuestionsByCategory(category);
+    }
+
+    @GetMapping("get-questions/{difficultyLevel}")
+    public ResponseEntity<List<Question>> getQuestionsByDifficultyLevel(@PathVariable String difficultyLevel) {
+        return questionService.getQuestionsByDifficultyLevel(difficultyLevel);
+    }
+
+    @GetMapping("get-questions/{difficultyLevel}/{category}")
+    public ResponseEntity<List<Question>> getQuestionsByDifficultyLevelAndCategory(@PathVariable String difficultyLevel, @PathVariable String category) {
+        return questionService.getQuestionsByDifficultyLevelAndCategory(difficultyLevel, category);
+    }
+
+    @DeleteMapping("delete-question/{id}")
+    public ResponseEntity<String> deleteQuestion(@PathVariable int id) {
+        return questionService.deleteQuestion(id);
     }
 }
