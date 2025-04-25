@@ -1,6 +1,7 @@
 package com.quiz.Quiz.App.controller;
 
 import com.quiz.Quiz.App.model.QuestionWrapper;
+import com.quiz.Quiz.App.model.Response;
 import com.quiz.Quiz.App.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,8 @@ public class QuizController {
         return quizService.getQuiz(id);
     }
 
+    @PostMapping("submit-quiz/{id}")
+    public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> response) {
+        return quizService.submitQuiz(id, response);
+    }
 }

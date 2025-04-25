@@ -3,6 +3,7 @@ package com.quiz.Quiz.App.service;
 import com.quiz.Quiz.App.model.Question;
 import com.quiz.Quiz.App.model.QuestionWrapper;
 import com.quiz.Quiz.App.model.Quiz;
+import com.quiz.Quiz.App.model.Response;
 import com.quiz.Quiz.App.repository.QuestionRepo;
 import com.quiz.Quiz.App.repository.QuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,26 @@ public class QuizService {
             }
         }
         return new ResponseEntity<List<QuestionWrapper>>(questionsForUser, HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<Integer> submitQuiz(Integer id, List<Response> response) {
+        List<Question> quiz = quizRepo.findById(id).get().getQuestions();
+        int score = 0;
+        int i = 0;
+        if(!response.isEmpty())
+        {
+            for (Response res : response) {
+                if (res.getResponse().equals(quiz.get(i).getRightAnswer())) {
+                    score++;
+                }
+                i++;
+            }
+            try {
+                return new ResponseEntity<Integer>(score, HttpStatus.OK);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return new ResponseEntity<Integer>(score, HttpStatus.NOT_FOUND);
     }
 }
